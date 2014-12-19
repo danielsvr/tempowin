@@ -1,0 +1,12 @@
+﻿@using OwinAndKatanaTry
+@model LoginViewModel
+<html>
+<head>
+    <title>Razor Server</title>
+</head>
+<body>
+    <form action="/Account/Login?return=@Model.ReturnUrl" method="post">
+        Hit the button: <input value="Login" type="submit"/>
+    </form>
+</body>
+</html>
