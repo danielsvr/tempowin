@@ -11,6 +11,9 @@ namespace OwinAndKatanaTry
         public MyUserManager(MyUserStore store)
             : base(store)
         {
+            PasswordHasher = new MyPasswordHasher();
         }
+
+       
     }
 }

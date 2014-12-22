@@ -26,7 +26,8 @@ namespace OwinAndKatanaTry
                 if (dataProtectionProvider != null)
                 {
                     manager.UserTokenProvider = new DataProtectorTokenProvider<MyUser>(
-                        dataProtectionProvider.Create("ASP.NET Identity"));
+                        dataProtectionProvider.Create());
+                    //dataProtectionProvider.Create("ASP.NET Identity"/*optional; by default it includes application name and Microsoft.Owin.Security.IDataProtector as purposes; everything is additional*/));
                 }
                 return manager;
             });
@@ -48,15 +49,6 @@ namespace OwinAndKatanaTry
                 }
             });
 
-            // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
-            //app.Use(new Func<object, object>(
-            //    x => new Middleware(new List<MyAppRoute> 
-            //    {
-            //        // Your routes
-            //        new MyAppRoute("Person", typeof(PersonController)),
-            //        new MyAppRoute("Account", typeof(AccountController))
-            //    })));
-
             app.CreatePerOwinContext<Middleware>(() => new Middleware(new List<MyAppRoute> 
             {
                 // Your routes
@@ -64,59 +56,22 @@ namespace OwinAndKatanaTry
                 new MyAppRoute("Account", typeof(AccountController))
             }));
 
-            //app.Use((ctx, next) =>
-            //{
-            //    //next();
-            //    var middleware = ctx.Get<Middleware>();
-            //    middleware.Invoke(ctx.Environment);
-            //    return next.Invoke();
-            //});
-
             app.Run(ctx =>
             {
                 var middleware = ctx.Get<Middleware>();
                 return middleware.Invoke(ctx.Environment);
             });
-
-            //app.Run(Run);
         }
-
-        //protected virtual Task Run(IOwinContext context)
-        //{
-        //    // Throw an exception for this URI path.
-        //    if (context.Request.Path.Equals(new PathString("/fail")))
-        //    {
-        //        throw new Exception("Random exception");
-        //    }
-
-        //    if (context.Request.Path.Equals(new PathString("/")))
-        //    {
-        //        context.Response.ContentType = "text/plain";
-        //        return context.Response.WriteAsync("Hello, world.");
-        //    }
-
-        //    context.Response.StatusCode = 500;
-        //    //context.Response.Body.Close();
-        //    //context.Response.Body = Stream.Null;
-        //    return Task.FromResult((object)null);
-        //}
     }
 
     public class DebugStartup : ProdStartup
     {
         public override void Configuration(IAppBuilder app)
         {
-            // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
-
             // Add the error page middleware to the pipeline. 
             app.UseErrorPage();
 
             base.Configuration(app);
         }
-
-        //protected override Task Run(IOwinContext context)
-        //{
-        //    return base.Run(context);
-        //}
     }
 }

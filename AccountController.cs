@@ -19,7 +19,9 @@ namespace OwinAndKatanaTry
         {
             var context = HttpContext.Current.GetOwinContext();
             var manager = context.Get<MySignInManager>();
-            var result = await manager.PasswordSignInAsync("my user", "my secret", /*remember me*/ false, shouldLockout: false);
+            var result = await manager.PasswordSignInAsync("my user", "my secret", 
+                         /*remember me*/ isPersistent: false, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -31,12 +33,10 @@ namespace OwinAndKatanaTry
                     return null;
                 case SignInStatus.RequiresVerification:
                     return null;
-                case SignInStatus.Failure:
-                default:
-                    //"Invalid login attempt"
-                    return null;
             }
-            
+            //SignInStatus.Failure:
+            //default:
+            //"Invalid login attempt"
             return null;
         }
     }

@@ -13,12 +13,14 @@ namespace OwinAndKatanaTry
     class MySignInManager : SignInManager<MyUser, string>
     {
         public MySignInManager(MyUserManager userManager, IAuthenticationManager authenticationManager) :
-            base(userManager, authenticationManager) { }
+            base(userManager, authenticationManager) { 
+        }
 
         public override async Task<ClaimsIdentity> CreateUserIdentityAsync(MyUser user)
-        {            
+        {
             var userIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             return userIdentity;
         }
+
     }
 }

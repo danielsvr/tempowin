@@ -101,6 +101,7 @@
     <Content Include="View\Person\Index.cshtml" />
     <Content Include="View\Account\Login.cshtml" />
     <Content Include="View\Web.config" />
+    <Content Include="View\Person\all.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -118,6 +119,7 @@
     <Compile Include="IView.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="Middleware.cs" />
+    <Compile Include="MyPasswordHasher.cs" />
     <Compile Include="MySignInManager.cs" />
     <Compile Include="MyUser.cs" />
     <Compile Include="MyUserManager.cs" />
